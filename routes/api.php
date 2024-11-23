@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -21,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Routers: User routes
  */
 Route::post('/register',[UserController::class,'register']);
+Route::post('/login',[UserController::class,'login']);
+Route::post('/SendOtpCode',[UserController::class,'SendOtpCode']);
+Route::post('/verifyOTP',[UserController::class,'verifyOTP']);
+Route::post('/resetPassword',[UserController::class,'resetPassword'])->middleware(TokenVerificationMiddleware::class);
