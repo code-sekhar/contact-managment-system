@@ -162,4 +162,17 @@ class UserController extends Controller
             ],500);
         }
     }
+    /**
+     * Function: logOut
+     * Description: This function is used to logOut user API
+     * @param
+     * @return JsonResponse
+     */
+    public function logOut()
+    {
+        return response()->json([
+            'message' => 'Logged out successfully',
+            'status_code' => 201,
+        ],201)->cookie('token','',-1);
+    }
 }
