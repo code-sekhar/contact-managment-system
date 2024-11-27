@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->cascadeOnUpdate()->restrictOnDelete();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

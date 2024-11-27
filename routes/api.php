@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,10 @@ Route::post('/SendOtpCode',[UserController::class,'SendOtpCode']);
 Route::post('/verifyOTP',[UserController::class,'verifyOTP']);
 Route::post('/resetPassword',[UserController::class,'resetPassword'])->middleware(TokenVerificationMiddleware::class);
 Route::post('/logOut',[UserController::class,'logOut'])->middleware(TokenVerificationMiddleware::class);
+
+/**
+ * Routers: Category routes
+ */
+Route::post('/addCategory',[CategoryController::class,'addCategory'])->middleware(TokenVerificationMiddleware::class);
+Route::get('/getAllCategories',[CategoryController::class,'getAllCategories'])->middleware(TokenVerificationMiddleware::class);
+Route::get('/getCategoryById/{id}',[CategoryController::class,'getByID'])->middleware(TokenVerificationMiddleware::class);
