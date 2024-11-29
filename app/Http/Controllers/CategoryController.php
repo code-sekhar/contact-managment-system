@@ -59,7 +59,7 @@ class CategoryController extends Controller
     }
     /**
      * Function: getByID
-     * This function is used to getByID API
+     * Description: This function is used to getByID API
      * @param NA
      * @return JsonResponse
      */
@@ -79,6 +79,68 @@ class CategoryController extends Controller
                 'success' => false,
                 'message' => 'Category not found!'
             ],404);
+        }
+    }
+    /**
+     * Function: updateCategory
+     * Description: This function is used to updateCategory API
+     * @param NA
+     * @return JsonResponse
+     */
+    public function updateCategory(Request $request,$id){
+        try{
+            $userId = $request->header('id');
+            $findCategory = Category::where('userId',$userId)->where('id',$id)->first();
+            if($findCategory){
+                $updateCategory = Category::where('userId',$userId)->where('id',$id)->update([
+                    'name' => $request->input('name'),
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'data' => $updateCategory,
+                    'message' => 'Category updated successfully!'
+                ],201);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Category not found!'
+                ],404);
+            }
+        }catch (Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => "Something went wrong!"
+            ],500);
+        }
+    }
+    /**
+     * Function: deleteCategory
+     * Description: This function is used to deleteCategory API
+     * @param NA
+     * @return JsonResponse
+     */
+    public function deleteCategory(Request $request,$id){
+        try{
+            $userId = $request->header('id');
+            $findCategory = Category::where('userId',$userId)->where('id',$id)->first();
+            if($findCategory){
+                $deleteCategory = Category::where('userId',$userId)->where('id',$id)->delete();
+                return response()->json([
+                    'success' => true,
+                    'data' => $deleteCategory,
+                    'message' => 'Category deleted successfully!'
+                ],201);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Category not found!'
+                ],404);
+            }
+        }catch (Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => "Something went wrong!"
+            ],500);
         }
     }
 }

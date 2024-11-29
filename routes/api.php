@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,3 +36,14 @@ Route::post('/logOut',[UserController::class,'logOut'])->middleware(TokenVerific
 Route::post('/addCategory',[CategoryController::class,'addCategory'])->middleware(TokenVerificationMiddleware::class);
 Route::get('/getAllCategories',[CategoryController::class,'getAllCategories'])->middleware(TokenVerificationMiddleware::class);
 Route::get('/getCategoryById/{id}',[CategoryController::class,'getByID'])->middleware(TokenVerificationMiddleware::class);
+Route::put('/updateCategory/{id}',[CategoryController::class,'updateCategory'])->middleware(TokenVerificationMiddleware::class);
+Route::delete('/deleteCategory/{id}',[CategoryController::class,'deleteCategory'])->middleware(TokenVerificationMiddleware::class);
+
+/**
+ * Routers: Contact routes
+ */
+Route::post('/contact',[ContactController::class,'addContact'])->middleware(TokenVerificationMiddleware::class);
+Route::get('/contact',[ContactController::class,'showContacts'])->middleware(TokenVerificationMiddleware::class);
+Route::get('/contact/{id}',[ContactController::class,'showContactsbyID'])->middleware(TokenVerificationMiddleware::class);
+Route::put('/contact/{id}',[ContactController::class,'updateContact'])->middleware(TokenVerificationMiddleware::class);
+Route::delete('/deleteContact/{id}',[ContactController::class,'deleteContact'])->middleware(TokenVerificationMiddleware::class);
